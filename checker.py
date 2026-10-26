@@ -220,7 +220,8 @@ def _check_domain_routing(
                 reason="Domain publishes an inconclusive or malformed MX configuration containing both Null MX and standard MX records.",
             )
         elif len(records) > 0:
-            # Valid standard MX records present
+            # Valid standard MX records present (sorted by preference per RFC 5321 §5.1)
+            records.sort(key=lambda r: getattr(r, "preference", 999999))
             primary_mx = records[0].exchange.to_text().rstrip(".")
             return DomainRoutingResult(
                 status=STATUS_UNKNOWN,

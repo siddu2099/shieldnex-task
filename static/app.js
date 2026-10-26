@@ -63,12 +63,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
+     * Clears all dynamic rows from the results table body.
+     */
+    function clearResultsTable() {
+        while (resultsBody.firstChild) {
+            resultsBody.removeChild(resultsBody.firstChild);
+        }
+    }
+
+    /**
+     * Resets results table, summary panel, and restores initial state.
+     * Ensures previous results are not misleadingly presented on failed requests.
+     */
+    function hideResults() {
+        clearResultsTable();
+        resultsContainer.hidden = true;
+        summaryPanel.hidden = true;
+        emptyResultsState.hidden = true;
+        initialState.hidden = false;
+    }
+
+    /**
      * Displays a user-facing error message in the designated accessible alert area.
      * Uses textContent to prevent HTML injection.
+     * Clears and hides previous results to prevent misleading association with failed requests.
      *
      * @param {string} message
      */
     function showError(message) {
+        hideResults();
         errorMessage.textContent = message;
         errorMessage.hidden = false;
     }
@@ -79,15 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function hideError() {
         errorMessage.textContent = "";
         errorMessage.hidden = true;
-    }
-
-    /**
-     * Clears all dynamic rows from the results table body.
-     */
-    function clearResultsTable() {
-        while (resultsBody.firstChild) {
-            resultsBody.removeChild(resultsBody.firstChild);
-        }
     }
 
     /**

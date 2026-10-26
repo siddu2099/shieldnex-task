@@ -159,7 +159,7 @@ pytest -q
 
 ### Test Isolation and Offline Execution
 - **100% Mocked DNS:** All DNS lookups in the test suite are mocked using genuine `dnspython` data structures parsed via `dns.message.from_text`.
-- **Zero External Dependencies:** Tests do not connect to public DNS resolvers, guaranteeing deterministic, fast execution (69 tests complete in ~1.0 second).
+- **Zero External Dependencies:** Tests do not connect to public DNS resolvers, guaranteeing deterministic, fast execution (70 tests complete in ~1.0 second).
 - **Controllable Monotonic Clock:** Timeout and deadline tests utilize patched monotonic clock ticks rather than real sleeps.
 
 ---

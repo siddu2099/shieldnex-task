@@ -179,6 +179,18 @@ class TestDnsClassification:
         assert "mail.example.com" in result["reason"]
         assert "mailbox existence cannot be confirmed" in result["reason"]
 
+    def test_dns_mx_records_out_of_order_sorted_by_preference(self):
+        """RFC 5321 §5.1: MX records must be sorted by numerical preference to find primary exchanger."""
+        mock_resolver = Mock(spec=dns.resolver.Resolver)
+        # Records arrive with higher preference numbers first
+        mock_resolver.resolve.return_value = make_mock_answer(
+            "multi-mx.org", "MX", ["50 backup.multi-mx.org.", "5 primary.multi-mx.org.", "20 relay.multi-mx.org."]
+        )
+        result = classify_email("contact@multi-mx.org", resolver=mock_resolver)
+        assert result["status"] == STATUS_UNKNOWN
+        assert "primary.multi-mx.org" in result["reason"]
+        assert "backup.multi-mx.org" not in result["reason"]
+
     def test_dns_explicit_rfc7505_null_mx_returns_likely_to_bounce(self):
         """RFC 7505 Null MX (preference 0, target '.') explicitly rejects mail."""
         mock_resolver = Mock(spec=dns.resolver.Resolver)
