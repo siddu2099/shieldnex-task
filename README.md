@@ -34,15 +34,17 @@ Repository URL: [https://github.com/siddu2099/shieldnex-task.git](https://github
 
 ## Technology Stack
 
-| Layer | Technology | Specification / Version | Purpose |
+Python package dependencies are currently unpinned and declared in `requirements.txt`.
+
+| Layer | Technology | Version Policy | Purpose |
 | :--- | :--- | :--- | :--- |
-| **Backend Framework** | FastAPI | `^0.110.0` | Asynchronous ASGI framework with native Pydantic schema validation. |
-| **ASGI Server** | Uvicorn | `^0.28.0` | Production ASGI web server runner. |
-| **Syntax Validation** | `email-validator` | `^2.1.0` | Authoritative RFC 5322 & RFC 5890 syntax and domain label parsing. |
-| **DNS Resolution** | `dnspython` | `^2.6.0` | DNS inspection (MX, A, AAAA) with bounded per-query and total timeouts. |
-| **Template Engine** | Jinja2 | `^3.1.3` | Server-rendered HTML templating with auto-escaping. |
-| **Frontend UI** | HTML5, CSS3, Vanilla JS | ECMAScript 2020+ | Single-page UI, zero front-end build step, zero third-party frameworks. |
-| **Testing** | `pytest`, `httpx` | Latest stable | Deterministic testing suite with 100% mocked DNS responses. |
+| **Backend Framework** | FastAPI | Unpinned (`requirements.txt`) | Asynchronous ASGI framework with native Pydantic schema validation. |
+| **ASGI Server** | Uvicorn | Unpinned (`requirements.txt`) | Production ASGI web server runner. |
+| **Syntax Validation** | `email-validator` | Unpinned (`requirements.txt`) | Authoritative RFC 5322 & RFC 5890 syntax and domain label parsing. |
+| **DNS Resolution** | `dnspython` | Unpinned (`requirements.txt`) | DNS inspection (MX, A, AAAA) with bounded per-query and total timeouts. |
+| **Template Engine** | Jinja2 | Unpinned (`requirements.txt`) | Server-rendered HTML templating with auto-escaping. |
+| **Frontend UI** | HTML5, CSS3, Vanilla JS | Native / Vanilla | Single-page UI, zero front-end build step, zero third-party frameworks. |
+| **Testing** | `pytest`, `httpx` | Unpinned (`requirements.txt`) | Deterministic testing suite with 100% mocked DNS responses. |
 
 *Architectural Constraints: No external databases, no third-party paid validation APIs, no heavy frontend frameworks (React/Vue), and no persistent cross-request caches.*
 
@@ -77,7 +79,7 @@ The codebase enforces strict separation of concerns across domain logic, HTTP ro
 ShieldNex Aerospace — Email Checker/
 ├── app.py                  # FastAPI application entrypoint, routes, schemas, and error handlers
 ├── checker.py              # Decoupled classification engine (RFC syntax, DNS lookups, caching)
-├── requirements.txt        # Pinned Python package dependencies
+├── requirements.txt        # Unpinned Python package dependencies
 ├── REQUIREMENTS.md         # Authoritative technical specification
 ├── README.md               # Project documentation
 ├── static/
