@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailCheck — Bulk Email Address Diagnostics</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <script src="{{ url_for('static', path='app.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="app-title">EmailCheck</h1>
+            <p class="app-tagline">Bulk email address diagnostics</p>
+            <p class="app-description">
+                Evaluates email syntax and inspects domain mail-routing configuration (MX records and implicit A/AAAA fallback) according to RFC standards. Because mailbox probing is strictly omitted to prevent blacklisting, individual mailbox existence cannot always be verified.
+            </p>
+        </header>
+
+        <main>
+            <section class="card input-section" aria-labelledby="input-heading">
+                <h2 id="input-heading" class="visually-hidden">Address Input</h2>
+                <form id="check-form" novalidate>
+                    <div class="form-group">
+                        <label for="emails" class="form-label">Email addresses</label>
+                        <p id="emails-helper" class="form-helper">
+                            Enter up to 50 non-empty email addresses separated by newlines or commas.
+                        </p>
+                        <textarea
+                            id="emails"
+                            name="emails"
+                            class="form-textarea"
+                            rows="7"
+                            aria-describedby="emails-helper"
+                            placeholder="ops@shieldnex.com&#10;flight-control@shieldnex.com&#10;contact@example.org"
+                            spellcheck="false"
+                            autocomplete="off"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="check-btn" class="btn btn-primary">Check addresses</button>
+                        <div id="loading" class="loading-indicator" hidden aria-live="polite">
+                            <span class="spinner" aria-hidden="true"></span>
+                            <span>Checking addresses...</span>
+                        </div>
+                    </div>
+                </form>
+
+                <div id="error-message" class="alert alert-error" role="alert" aria-live="assertive" hidden></div>
+            </section>
+
+            <section class="card results-section" aria-labelledby="results-heading">
+                <div class="results-header">
+                    <h2 id="results-heading" class="section-title">Diagnostic results</h2>
+                </div>
+
+                <div id="summary" class="summary-panel" hidden aria-live="polite">
+                    <div class="summary-item">
+                        <span class="summary-label">Total Evaluated</span>
+                        <span id="summary-total" class="summary-count">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Likely Delivered</span>
+                        <span id="summary-delivered" class="status-badge badge-delivered">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Likely to Bounce</span>
+                        <span id="summary-bounce" class="status-badge badge-bounce">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Unknown</span>
+                        <span id="summary-unknown" class="status-badge badge-unknown">0</span>
+                    </div>
+                </div>
+
+                <div id="initial-state" class="empty-state">
+                    <p>Enter up to 50 email addresses above and select <strong>Check addresses</strong> to run diagnostics.</p>
+                </div>
+
+                <div id="empty-results-state" class="empty-state" hidden>
+                    <p>No addresses were evaluated.</p>
+                </div>
+
+                <div id="results-container" class="table-container" hidden>
+                    <table class="results-table" aria-describedby="results-heading">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="col-email">Email address</th>
+                                <th scope="col" class="col-status">Status</th>
+                                <th scope="col" class="col-reason">Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

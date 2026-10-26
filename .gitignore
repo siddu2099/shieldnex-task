@@ -1,0 +1,36 @@
+# Python virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python byte-code and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Testing and coverage caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment configurations and secrets
+.env
+.env.*
+!.env.example
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Private data / personal test email lists
+*.csv
+*.xlsx
+email_lists/
